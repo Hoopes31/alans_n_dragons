@@ -24,6 +24,7 @@ namespace alans_n_dragons
 
             while(player1.Turn > 0 || player2.Turn > 0)
             {
+
                 //Tell Player what cards are in their hand
                 //If field is empty => add card to field
 
@@ -48,7 +49,11 @@ namespace alans_n_dragons
                 //Player with life wins
                 //Increment Win/Loss Ratio
         }
-
+        public void Welcome()
+        {
+            System.Console.WriteLine("Welcome to Alans n Dragons.");
+            System.Console.WriteLine("Will it be Alan or the Dragon that decide the fate of your match?");
+        }
         public void StartDeal(Player player, int numberOfCards)
         {
             for (int i = 0; i < numberOfCards; i++)
