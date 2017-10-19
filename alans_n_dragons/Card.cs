@@ -8,6 +8,7 @@ namespace alans_n_dragons
         public int atk {get;set;}
         public int def {get;set;}
         public string type {get;set;}
+        public bool mode = true; //true is attack mode
         public Card(string s, int val){           
             type = s;
             if(type == "Attack") {
