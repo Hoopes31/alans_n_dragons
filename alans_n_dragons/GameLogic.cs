@@ -22,9 +22,19 @@ namespace alans_n_dragons
             StartDeal(player1, 5);
             StartDeal(player2, 5);
 
+            //Welcome to the Game
+            Welcome(player1, player2);
+
             while(player1.Turn > 0 || player2.Turn > 0)
             {
-
+                if(player1.Turn > 0)
+                {
+                    Logic(player1);
+                }
+                else
+                {
+                    Logic(player2);
+                }
                 //Tell Player what cards are in their hand
                 //If field is empty => add card to field
 
@@ -49,10 +59,19 @@ namespace alans_n_dragons
                 //Player with life wins
                 //Increment Win/Loss Ratio
         }
-        public void Welcome()
+        public void Logic(Player player)
+        {
+            System.Console.WriteLine($"{player.Name} it is your turn. Press any key when ready.");
+
+        }
+        public void Welcome(Player player1, Player player2)
         {
             System.Console.WriteLine("Welcome to Alans n Dragons.");
             System.Console.WriteLine("Will it be Alan or the Dragon that decide the fate of your match?");
+            System.Console.WriteLine("Player 1 enter your name");
+            player1.Name = System.Console.ReadLine();
+            System.Console.WriteLine("Player 2 enter your name");
+            player1.Name = System.Console.ReadLine();
         }
         public void StartDeal(Player player, int numberOfCards)
         {
