@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace cards 
+namespace alans_n_dragons 
 {
     public class Deck{
         public List<Card> Cards {get;set;}
@@ -16,10 +16,10 @@ namespace cards
         }
 
         public void Reload(){
-            String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-            foreach(string suit in suits){
-                for(int i = 1; i < 14; i++){
-                    Cards.Add(new Card(suit, i));
+            String[] types = {"Attack", "Defense"};
+            foreach(string type in types){
+                for(int i = 0; i < 15; i++){
+                    Cards.Add(new Card(type, i));
                 }
             }
         }
