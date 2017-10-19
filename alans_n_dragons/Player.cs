@@ -7,13 +7,15 @@ namespace alans_n_dragons
         public string Name {get;set;}
         public int Health {get;set;}
         public List<Card> Hand{get;set;}
-        public Card[] Field {get;set;}
+        public List<Card> Field {get;set;}
+        public int Turn {get;set;}
+        public Deck playerDeck;
 
     public Player(string n){
         Name = n;
         Health = 30;
         Hand = new List<Card>();
-        Field = new Card[3];
+        Field = new List<Card>();
     }
 
     // public Card Draw (Deck newDeck){
