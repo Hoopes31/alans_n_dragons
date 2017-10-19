@@ -8,12 +8,13 @@ namespace alans_n_dragons
         {
             //GAME START
             //Give Players 100 Health && 2 Turns
-            player1.Health = 100;
-            player2.Health = 100;
+            player1.Health = 30;
+            player2.Health = 30;
             player1.Turns = 2;
             player2.Turns = 2;
             
-            //Deal player cards
+            //Deal player cards 5
+            
 
             //Player 1 goes first
                 //Player1 plays two turns
@@ -39,16 +40,54 @@ namespace alans_n_dragons
 
             public void Attack(Player player, object target)
             {
-                if (player.fieldCard.mode == "atk")
+                if (player.selectedCard.mode == true)
                 {
                     if(target is Card)
                     {
-                        
+                        Card enemy = target as Card;
+
+                        if (enemy.mode == true)
+                        {
+                            enemy.atk -= player.selectedCard.atk;
+                            player.selectedCard.atk -= enemy.atk;
+                            KillTest(enemy);
+                            player.Turns -= 1;
+                        }
+                        else
+                        {
+                            enemy.def -= player.selectedCard.atk;
+                            player.Turns -= 1;
+                        }
+                    }
+
+                    if (target is Player)
+                    {
+                        Player enemy = target as Player;
+                        enemy -= player.selectedCard.atk;
                     }
                 }
                 else
                 {
-                    System.Console.WriteLine($"{player.fieldCard.name} is a defense card, and cannot attack.");
+                    System.Console.WriteLine($"{player.selectedCard.name} is a defense card, and cannot attack.");
+                }
+            }
+            public void KillTest(object target)
+            {
+                if (target is Player)
+                {
+                    Player beingTested = beingTested as Player;
+                    if (beingTested.health < 1)
+                    {
+                        //End Game
+                    } 
+                }
+                else (target is Card)
+                {
+                    Card beingTested = beingTested as Card;
+                    if (beingTested.health < 1)
+                    {
+                        //Remove card from field
+                    } 
                 }
             }
 
