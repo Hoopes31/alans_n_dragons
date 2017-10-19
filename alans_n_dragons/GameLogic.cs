@@ -47,7 +47,6 @@ namespace alans_n_dragons
                 //When Player life = 0
                 //Player with life wins
                 //Increment Win/Loss Ratio
-
         }
 
         public void StartDeal(Player player, int numberOfCards)
