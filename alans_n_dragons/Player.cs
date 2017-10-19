@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace cards 
+namespace alans_n_dragons 
 {
     public class Player{
         public string Name {get;set;}
