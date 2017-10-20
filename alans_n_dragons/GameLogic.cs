@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Diagnostics;
 
 namespace alans_n_dragons
 {
@@ -21,7 +22,7 @@ namespace alans_n_dragons
             //Deal each player 5 cards
             StartDeal(player1, 5);
             StartDeal(player2, 5);
-            
+
             //Welcome to the Game
             
             //GAME TURN
@@ -87,7 +88,6 @@ namespace alans_n_dragons
         public void Logic(Player player, Player player2)
         {
             Ascii pictures = new Ascii();
-
             System.Console.WriteLine($"{player.Name} it is your turn. Press any key when ready.");
             string readyCheck = System.Console.ReadLine();
             DisplayCards(player, "hand");
@@ -115,8 +115,11 @@ namespace alans_n_dragons
             Ascii pictures = new Ascii();
             if (handType == "hand"){
                 System.Console.WriteLine($"{player.Name}'s Hand");
+
+                Debug.WriteLine(player.Hand);
                 foreach (Card card in player.Hand)
                 {
+                Debug.WriteLine(card);
                     System.Console.WriteLine(pictures.cardAscii, card.name, card.atk, card.def, "INACTIVE");
                 }
             }
