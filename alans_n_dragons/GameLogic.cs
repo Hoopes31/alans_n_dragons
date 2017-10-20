@@ -199,12 +199,18 @@ namespace alans_n_dragons
                 System.Console.WriteLine("Top card is 0 bottom card is 4");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
+<<<<<<< HEAD
                 System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
+=======
+>>>>>>> 47b84ec14f6ba188f2344d4f4122834779042b16
                 System.Console.WriteLine("For attacking enter 'a'"); 
                 System.Console.WriteLine("For defending enter 'd'");
                 string decision = System.Console.ReadLine().ToLower();
                 AddToField(player1, player2, idx_number, decision);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47b84ec14f6ba188f2344d4f4122834779042b16
             }
         }
         public void AddToField(Player player1, Player player2, int idx, string decision)
@@ -215,6 +221,7 @@ namespace alans_n_dragons
                 selectedCard.mode = false;
             }
             player1.Field.Add(selectedCard);
+            player1.Hand.Remove(selectedCard);
             player1.Turn -= 1;
             player2.Turn += 1;
         }
