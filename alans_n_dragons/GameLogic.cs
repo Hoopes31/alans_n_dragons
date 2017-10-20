@@ -243,7 +243,7 @@ namespace alans_n_dragons
                     {
                         enemy.atk -= selectedCard.atk;
                         selectedCard.atk -= enemy.atk;
-                        KillTest(player1, player2, enemy, selectedCard.atk);
+                        KillTest(player1, player2, enemy, selectedCard);
                         KillTest(player1, player2, selectedCard, selectedCard.atk);                            
                         player1.Turn -= 1;
                         player2.Turn += 1;
@@ -252,7 +252,7 @@ namespace alans_n_dragons
                     {
                         enemy.def -= selectedCard.atk;
                         selectedCard.atk -= enemy.def;
-                        KillTest(player1, player2, enemy, selectedCard.atk);
+                        KillTest(player1, player2, enemy, selectedCard);
                         KillTest(player1, player2, selectedCard, selectedCard.atk);
                         player1.Turn -= 1;
                         player2.Turn += 1;
@@ -279,6 +279,7 @@ namespace alans_n_dragons
                 {
                     System.Console.WriteLine(pictures.deadCard, matchCard.name);
                     player.Field.Remove(matchCard);
+                    break;
                 }
             }
         }
@@ -296,7 +297,7 @@ namespace alans_n_dragons
                 return NumberProtection(retry);
             }
         }
-        public void KillTest(Player player1, Player player2, object target, int attack)
+        public void KillTest(Player player1, Player player2, object target, Card attacker)
         {
             if (target is Player)
             {
@@ -314,15 +315,29 @@ namespace alans_n_dragons
                 
                 if (beingTested.mode == true)
                 {
-                    beingTested.atk -= attack;
+                    beingTested.atk -= attacker.atk;
+                    attacker.atk -= beingTested.atk;
                     if (beingTested.atk < 1)
                     {
                         RemoveFromField(beingTested, player2);
                     }
+                    if (attacker.atk < 1)
+                    {
+                        RemoveFromField(attacker, player1);
+                    }
                 }
                 else
                 {
-                    beingTested.def -= attack;
+                    beingTested.def -= attacker.atk;
+                    attacker.atk -= beingTested.atk;
+                    if (beingTested.def < 1)
+                    {
+                        RemoveFromField(beingTested, player2);
+                    }
+                    if (attacker.atk < 1)
+                    {
+                        RemoveFromField(attacker, player1);
+                    }
                 } 
             }
         }
