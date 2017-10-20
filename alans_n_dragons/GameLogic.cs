@@ -140,6 +140,7 @@ namespace alans_n_dragons
                 while (count < 4)
                 {
                     System.Console.WriteLine(pictures.emptyCard);
+                    count ++;
                 }
             }
         }
