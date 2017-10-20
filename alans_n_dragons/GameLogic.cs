@@ -91,11 +91,19 @@ namespace alans_n_dragons
             System.Console.WriteLine($"{player.Name} it is your turn. Press any key when ready.");
             string readyCheck = System.Console.ReadLine();
             DisplayCards(player, "hand");
-            System.Console.WriteLine("Would you like to attack or add a card to the field?");
-            System.Console.WriteLine("To attack press: A");
-            System.Console.WriteLine("To field a card press: F");
-            string response = System.Console.ReadLine().ToLower();
-            AttackOrField(player, player2, response);
+            if (player.Field.Count < 1)
+            {
+                System.Console.WriteLine("Your field is empty. Add a card to the field");
+                string response = "f";
+                AttackOrField(player, player2, response);
+            }
+            else{
+                System.Console.WriteLine("Would you like to attack or add a card to the field?");
+                System.Console.WriteLine("To attack press: A");
+                System.Console.WriteLine("To field a card press: F");
+                string response = System.Console.ReadLine().ToLower();
+                AttackOrField(player, player2, response);
+            }
         }
         public void StartDeal(Player player, int numberOfCards)
         {
@@ -158,9 +166,9 @@ namespace alans_n_dragons
                 //If player2 is defended =>
                 if(Defended(player2))
                 {
+                    DisplayCards(player2, "field");
                     System.Console.WriteLine($"{player2.Name} is DEFENDED!");
                     System.Console.WriteLine($"Which of {player2.Name}'s cards would you like to attack?");
-                    DisplayCards(player1, "field");
                     string attackResponse = System.Console.ReadLine();
                     int defender = NumberProtection(attackResponse);
                     Card target = CreateAttack(player2, defender);
@@ -199,18 +207,11 @@ namespace alans_n_dragons
                 System.Console.WriteLine("Top card is 0 bottom card is 4");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
-<<<<<<< HEAD
                 System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
-=======
->>>>>>> 47b84ec14f6ba188f2344d4f4122834779042b16
                 System.Console.WriteLine("For attacking enter 'a'"); 
                 System.Console.WriteLine("For defending enter 'd'");
                 string decision = System.Console.ReadLine().ToLower();
                 AddToField(player1, player2, idx_number, decision);
-<<<<<<< HEAD
-
-=======
->>>>>>> 47b84ec14f6ba188f2344d4f4122834779042b16
             }
         }
         public void AddToField(Player player1, Player player2, int idx, string decision)
