@@ -43,7 +43,9 @@ namespace alans_n_dragons
         }
         public void GameStart(Player player1, Player player2)
         {
-            
+            System.Console.WriteLine($"{Environment.NewLine}");
+            System.Console.WriteLine("Welcome to Alans n Dragons.");
+            System.Console.WriteLine($"Will it be Alan or the Dragon that decide the fate of your match? {Environment.NewLine}");
             Welcome(player1, player2);
             Welcome(player2, player1);
 
@@ -67,8 +69,6 @@ namespace alans_n_dragons
         }
         public void Welcome(Player player, Player player2)
         {
-            System.Console.WriteLine("Welcome to Alans n Dragons.");
-            System.Console.WriteLine("Will it be Alan or the Dragon that decide the fate of your match?");
             System.Console.WriteLine("Player enter your name");
             player.Name = System.Console.ReadLine();
             System.Console.WriteLine($"{player.Name} it is your turn. Press any key when ready.");
@@ -84,6 +84,7 @@ namespace alans_n_dragons
             System.Console.WriteLine("For defending enter 'd'");
             string decision = System.Console.ReadLine().ToLower();
             AddToField(player, player2, idx_number, decision);
+            System.Console.WriteLine($"{player.Name} your turn has ended {Environment.NewLine}");
         }
         public void Logic(Player player, Player player2)
         {
@@ -115,8 +116,15 @@ namespace alans_n_dragons
 
         public void Draw(Player player)
         {
-            Card card = player.playerDeck.Deal();
-            player.Hand.Add(card);
+            if (player.playerDeck.Cards.Count > 0)
+            {
+                Card card = player.playerDeck.Deal();
+                player.Hand.Add(card);
+            }
+            else
+            {
+                System.Console.WriteLine($"{player.Name} is out of cards!");
+            }
         }
         public void DisplayCards(Player player, string handType)
         {
@@ -223,6 +231,7 @@ namespace alans_n_dragons
             }
             player1.Field.Add(selectedCard);
             player1.Hand.Remove(selectedCard);
+            Draw(player1);
             player1.Turn -= 1;
             player2.Turn += 1;
         }
@@ -257,6 +266,8 @@ namespace alans_n_dragons
                     {
                         enemy.atk -= selectedCard.atk;
                         selectedCard.atk -= enemy.atk;
+                        System.Console.WriteLine($"{player1.Name}'s {selectedCard.name} has {selectedCard.atk} life.");
+                        System.Console.WriteLine($"{player2.Name}'s {enemy.name} has {enemy.atk} life.");
                         KillTest(player1, player2, enemy, selectedCard);                           
                         player1.Turn -= 1;
                         player2.Turn += 1;
@@ -265,6 +276,8 @@ namespace alans_n_dragons
                     {
                         enemy.def -= selectedCard.atk;
                         selectedCard.atk -= enemy.def;
+                        System.Console.WriteLine($"{player1.Name}'s {selectedCard.name} has {selectedCard.atk} life.");
+                        System.Console.WriteLine($"{player2.Name}'s {enemy.name} has {enemy.def} life.");
                         KillTest(player1, player2, enemy, selectedCard);
                         player1.Turn -= 1;
                         player2.Turn += 1;
@@ -275,6 +288,8 @@ namespace alans_n_dragons
                 {
                     Player enemy = target as Player;
                     enemy.Health -= selectedCard.atk;
+                    System.Console.WriteLine($"{enemy.Name} loses {selectedCard.atk} health!");
+                    System.Console.WriteLine($"{enemy.Name} now has {enemy.Health} health!");                    
                 }
             }
             else
