@@ -79,6 +79,7 @@ namespace alans_n_dragons
             //Set up fail logic for non int numbers.
             string idx = System.Console.ReadLine();
             int idx_number = NumberProtection(idx);
+            SelectProtect(player, idx_number, "hand");
             System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
             System.Console.WriteLine("For attacking enter 'a'"); 
             System.Console.WriteLine("For defending enter 'd'");
@@ -169,7 +170,7 @@ namespace alans_n_dragons
                 System.Console.WriteLine("Select a card by number.");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
-                SelectProtect(player1, idx_number, "hand");
+                SelectProtect(player1, idx_number, "field");
                 Card attacker = CreateAttack(player1, idx_number);
 
                 //If player2 is defended =>
@@ -203,7 +204,7 @@ namespace alans_n_dragons
                     else
                     {
                         System.Console.WriteLine($"Which of {player2.Name}'s cards would you like to attack?");
-                        DisplayCards(player1, "field");
+                        DisplayCards(player2, "field");
                         string attackResponse = System.Console.ReadLine();
                         int defender = NumberProtection(attackResponse);
                         SelectProtect(player2, defender, "field");
@@ -338,8 +339,12 @@ namespace alans_n_dragons
             {
                 foreach (Card card in player.Hand)
                 {
+                    if (card is Card)
+                    {
                     count++;
+                    }
                 }
+
                 if (value < count)
                 {
                     return value;
@@ -357,7 +362,10 @@ namespace alans_n_dragons
             {
                 foreach (Card card in player.Field)
                 {
+                    if (card is Card)
+                    {
                     count++;
+                    }
                 }
                 if (value < count)
                 {
