@@ -329,7 +329,7 @@ namespace alans_n_dragons
                 else
                 {
                     beingTested.def -= attacker.atk;
-                    attacker.atk -= beingTested.atk;
+                    attacker.atk -= beingTested.def;
                     if (beingTested.def < 1)
                     {
                         RemoveFromField(beingTested, player2);
