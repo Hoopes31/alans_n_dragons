@@ -23,23 +23,6 @@ namespace alans_n_dragons
             StartDeal(player1, 5);
             StartDeal(player2, 5);
 
-            //Welcome to the Game
-            
-            //GAME TURN
-            //Card to Field 
-                //Select Card
-                //Select Card Mode
-                //Send to Field
-                //Reduce Turn
-            //Card to action
-                //Select Card in Field
-                //Select Target (player if available) (or card)
-                //Reduce Turn
-            
-            //Game Finish
-                //When Player life = 0
-                //Player with life wins
-                //Increment Win/Loss Ratio
         }
         public void GameStart(Player player1, Player player2)
         {
@@ -156,7 +139,7 @@ namespace alans_n_dragons
                     System.Console.WriteLine(pictures.cardAscii, card.name, card.atk, card.def, mode, count);
                     count ++;
                 }
-                while (count < 4)
+                while (count < 3)
                 {
                     System.Console.WriteLine(pictures.emptyCard);
                     count ++;
@@ -218,6 +201,20 @@ namespace alans_n_dragons
             }
             else
             {
+                int count = 0;
+                for(int i = 0; i < player1.Field.Count; i++)
+                {
+                    if (player1.Field[i] is Card)
+                    {
+                    count++;
+                    }
+                }
+                if (count > 3)
+                {
+                    System.Console.WriteLine("Your field is full you must attack!");
+                    AttackOrField(player1, player2, "a");
+
+                }
                 DisplayCards(player1, "hand");
                 System.Console.WriteLine("Select a card to field.");
                 System.Console.WriteLine("Select a card by number.");

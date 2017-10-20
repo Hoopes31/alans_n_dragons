@@ -15,7 +15,7 @@ namespace alans_n_dragons
         Name = n;
         Health = 30;
         Hand = new List<Card>();
-        Field = new List<Card>();
+        Field = new List<Card>(2);
     }
 
     public void ShowHand(){
