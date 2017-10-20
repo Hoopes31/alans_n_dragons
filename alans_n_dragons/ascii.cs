@@ -1,6 +1,14 @@
-            string cardAscii = @"
+using System;
+using System.Collections.Generic;
+
+namespace alans_n_dragons 
+{
+    public class Ascii
+    {
+        public string cardAscii = @"
             
-                '{0}'           
+                '{0}'
+                Number: {6}           
                 ______________
                |              |
                |Attack:   {1}   |
@@ -13,7 +21,7 @@
                 {3}                 
                                 ";
 
-           string emptyCard = @"
+           public string emptyCard = @"
                 ______________
                |              |
                |              |
@@ -24,7 +32,9 @@
                |              |
                 ~~~~~~~~~~~~~~   ";
 
-           string deadCard = @"
+           public string deadCard = @"
+                '{0}'
+                   is DEAD
                 ______________
                |\            /|
                |  \        /  |
@@ -36,7 +46,7 @@
                 ~~~~~~~~~~~~~~   ";
 
             
-            string fieldAscii = @"
+            public string fieldAscii = @"
                 {0}'s Field
 
                 '{1}'        
@@ -76,5 +86,74 @@
                 {12}               
                                     
                                                 
-                                ";
-        Console.WriteLine(fieldAscii, "Sleepy Allen", 1, 9,"DEFENSE MODE","Awoke Allen", 9, 1, "ATTACK MODE", "Regular Allen", 5, 5, "ATTACK MODE");
+                       ";
+            public string handAscii = @"
+                {0}'s Hand
+
+                '{1}'        
+                ______________
+               |              |
+               |Attack:   {2}   |  
+               |              |
+               |              |         
+               |Defense:   {3}  |
+               |              |
+               |              |
+                ~~~~~~~~~~~~~~
+                {4}
+
+                '{5}'        
+                ______________
+               |              |
+               |Attack:   {6}   |  
+               |              |
+               |              |         
+               |Defense:   {7}  |
+               |              |
+               |              |
+                ~~~~~~~~~~~~~~
+                {8}
+
+                '{9}'        
+                ______________
+               |              |
+               |Attack:   {10}   |  
+               |              |
+               |              |         
+               |Defense:   {11}  |
+               |              |
+               |              |
+                ~~~~~~~~~~~~~~
+                {12}
+
+                 '{13}'        
+                ______________
+               |              |
+               |Attack:   {14}   |  
+               |              |
+               |              |         
+               |Defense:   {15}  |
+               |              |
+               |              |
+                ~~~~~~~~~~~~~~
+                {16}   
+
+                 '{17}'        
+                ______________
+               |              |
+               |Attack:   {18}   |  
+               |              |
+               |              |         
+               |Defense:   {19}  |
+               |              |
+               |              |
+                ~~~~~~~~~~~~~~
+                {20}                                  
+                
+                
+                       ";
+        public Ascii()
+        {
+        }
+    }
+}
