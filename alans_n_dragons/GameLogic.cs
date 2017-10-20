@@ -194,10 +194,16 @@ namespace alans_n_dragons
             }
             else
             {
+                DisplayCards(player1, "hand");
                 System.Console.WriteLine("Select a card to field.");
                 System.Console.WriteLine("Top card is 0 bottom card is 4");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
+                System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
+                System.Console.WriteLine("For attacking enter 'a'"); 
+                System.Console.WriteLine("For defending enter 'd'");
+                string decision = System.Console.ReadLine().ToLower();
+                AddToField(player1, player2, idx_number, decision);
 
             }
         }
@@ -238,7 +244,7 @@ namespace alans_n_dragons
                 if(target is Card)
                 {
                     Card enemy = target as Card;
-
+                    // check defender's card mode 
                     if (enemy.mode == true)
                     {
                         enemy.atk -= selectedCard.atk;
