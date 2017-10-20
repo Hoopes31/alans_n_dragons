@@ -145,8 +145,9 @@ namespace alans_n_dragons
         }
         public void AttackOrField(Player player1, Player player2, string response)
         {
-            if (response == "A")
+            if (response == "a")
             {
+                DisplayCards(player1, "field");
                 System.Console.WriteLine("Select a card to attack with.");
                 System.Console.WriteLine("Top card is 0 bottom card is 2");
                 string idx = System.Console.ReadLine();
