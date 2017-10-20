@@ -18,12 +18,6 @@ namespace alans_n_dragons
         Field = new List<Card>();
     }
 
-    // public Card Draw (Deck newDeck){
-    //     Card card = newDeck.Deal();
-    //     Hand.Add(card);
-    //     return card;
-    // }
-
     public void ShowHand(){
         foreach(Card newCard in Hand){
             newCard.printCard();

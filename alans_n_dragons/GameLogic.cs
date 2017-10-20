@@ -21,11 +21,11 @@ namespace alans_n_dragons
             //Deal each player 5 cards
             StartDeal(player1, 5);
             StartDeal(player2, 5);
-
+            
             //Welcome to the Game
             
             //GAME TURN
-            //Card to Field
+            //Card to Field 
                 //Select Card
                 //Select Card Mode
                 //Send to Field
@@ -42,6 +42,7 @@ namespace alans_n_dragons
         }
         public void GameStart(Player player1, Player player2)
         {
+            
             Welcome(player1, player2);
             Welcome(player2, player1);
 
@@ -109,10 +110,10 @@ namespace alans_n_dragons
             Card card = player.playerDeck.Deal();
             player.Hand.Add(card);
         }
-        public void DisplayCards(Player player, string cards)
+        public void DisplayCards(Player player, string handType)
         {
             Ascii pictures = new Ascii();
-            if (cards == "hand"){
+            if (handType == "hand"){
                 System.Console.WriteLine($"{player.Name}'s Hand");
                 foreach (Card card in player.Hand)
                 {
