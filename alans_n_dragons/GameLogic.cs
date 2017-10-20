@@ -243,8 +243,7 @@ namespace alans_n_dragons
                     {
                         enemy.atk -= selectedCard.atk;
                         selectedCard.atk -= enemy.atk;
-                        KillTest(player1, player2, enemy, selectedCard);
-                        KillTest(player1, player2, selectedCard, selectedCard.atk);                            
+                        KillTest(player1, player2, enemy, selectedCard);                           
                         player1.Turn -= 1;
                         player2.Turn += 1;
                     }
@@ -253,7 +252,6 @@ namespace alans_n_dragons
                         enemy.def -= selectedCard.atk;
                         selectedCard.atk -= enemy.def;
                         KillTest(player1, player2, enemy, selectedCard);
-                        KillTest(player1, player2, selectedCard, selectedCard.atk);
                         player1.Turn -= 1;
                         player2.Turn += 1;
                     }
@@ -315,8 +313,6 @@ namespace alans_n_dragons
                 
                 if (beingTested.mode == true)
                 {
-                    beingTested.atk -= attacker.atk;
-                    attacker.atk -= beingTested.atk;
                     if (beingTested.atk < 1)
                     {
                         RemoveFromField(beingTested, player2);
@@ -328,8 +324,6 @@ namespace alans_n_dragons
                 }
                 else
                 {
-                    beingTested.def -= attacker.atk;
-                    attacker.atk -= beingTested.def;
                     if (beingTested.def < 1)
                     {
                         RemoveFromField(beingTested, player2);
