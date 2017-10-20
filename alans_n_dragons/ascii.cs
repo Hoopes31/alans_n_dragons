@@ -8,7 +8,7 @@ namespace alans_n_dragons
         public string cardAscii = @"
             
                 '{0}'
-                Number: {6}           
+                Number: {4}           
                 ______________
                |              |
                |Attack:   {1}   |

@@ -116,11 +116,11 @@ namespace alans_n_dragons
             if (handType == "hand"){
                 System.Console.WriteLine($"{player.Name}'s Hand");
 
-                Debug.WriteLine(player.Hand);
+                int count = 0;
                 foreach (Card card in player.Hand)
                 {
-                Debug.WriteLine(card);
-                    System.Console.WriteLine(pictures.cardAscii, card.name, card.atk, card.def, "INACTIVE");
+                    System.Console.WriteLine(pictures.cardAscii, card.name, card.atk, card.def, "INACTIVE", count);
+                    count ++;
                 }
             }
             else
