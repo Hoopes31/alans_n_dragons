@@ -43,6 +43,8 @@ namespace alans_n_dragons
         }
         public void GameStart(Player player1, Player player2)
         {
+            Ascii pictures = new Ascii();
+            System.Console.WriteLine(pictures.title);
             System.Console.WriteLine($"{Environment.NewLine}");
             System.Console.WriteLine("Welcome to Alans n Dragons.");
             System.Console.WriteLine($"Will it be Alan or the Dragon that decide the fate of your match? {Environment.NewLine}");
@@ -79,12 +81,12 @@ namespace alans_n_dragons
             //Set up fail logic for non int numbers.
             string idx = System.Console.ReadLine();
             int idx_number = NumberProtection(idx);
-            SelectProtect(player, idx_number, "hand");
+            int selection = SelectProtect(player, idx_number, "hand");
             System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
             System.Console.WriteLine("For attacking enter 'a'"); 
             System.Console.WriteLine("For defending enter 'd'");
             string decision = System.Console.ReadLine().ToLower();
-            AddToField(player, player2, idx_number, decision);
+            AddToField(player, player2, selection, decision);
             System.Console.WriteLine($"{player.Name} your turn has ended {Environment.NewLine}");
         }
         public void Logic(Player player, Player player2)
@@ -170,8 +172,8 @@ namespace alans_n_dragons
                 System.Console.WriteLine("Select a card by number.");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
-                SelectProtect(player1, idx_number, "field");
-                Card attacker = CreateAttack(player1, idx_number);
+                int selection =SelectProtect(player1, idx_number, "field");
+                Card attacker = CreateAttack(player1, selection);
 
                 //If player2 is defended =>
                 if(Defended(player2))
@@ -180,10 +182,10 @@ namespace alans_n_dragons
                     System.Console.WriteLine($"{player2.Name} is DEFENDED!");
                     System.Console.WriteLine($"Which of {player2.Name}'s cards would you like to attack?");
                     string attackResponse = System.Console.ReadLine();
-                    int defender = NumberProtection(attackResponse);
+                    int int_defender = NumberProtection(attackResponse);
 
                     //if defender selected number is not in range player2 field try again
-                    SelectProtect(player2, defender, "field");
+                    int defender = SelectProtect(player2, int_defender, "field");
                     Card target = CreateAttack(player2, defender);
                     Attack(player1, player2, target, attacker);
                 }
@@ -337,9 +339,9 @@ namespace alans_n_dragons
             int count = 0;
             if (handType == "hand")
             {
-                foreach (Card card in player.Hand)
+                for(int i = 0; i < player.Hand.Count; i++)
                 {
-                    if (card is Card)
+                    if (player.Hand[i] is Card)
                     {
                     count++;
                     }
