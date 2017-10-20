@@ -23,26 +23,11 @@ namespace alans_n_dragons
             StartDeal(player1, 5);
             StartDeal(player2, 5);
 
-            //Welcome to the Game
-            
-            //GAME TURN
-            //Card to Field 
-                //Select Card
-                //Select Card Mode
-                //Send to Field
-                //Reduce Turn
-            //Card to action
-                //Select Card in Field
-                //Select Target (player if available) (or card)
-                //Reduce Turn
-            
-            //Game Finish
-                //When Player life = 0
-                //Player with life wins
-                //Increment Win/Loss Ratio
         }
         public void GameStart(Player player1, Player player2)
         {
+            Ascii pictures = new Ascii();
+            System.Console.WriteLine(pictures.title);
             System.Console.WriteLine($"{Environment.NewLine}");
             System.Console.WriteLine("Welcome to Alans n Dragons.");
             System.Console.WriteLine($"Will it be Alan or the Dragon that decide the fate of your match? {Environment.NewLine}");
@@ -79,11 +64,12 @@ namespace alans_n_dragons
             //Set up fail logic for non int numbers.
             string idx = System.Console.ReadLine();
             int idx_number = NumberProtection(idx);
+            int selection = SelectProtect(player, idx_number, "hand");
             System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
             System.Console.WriteLine("For attacking enter 'a'"); 
             System.Console.WriteLine("For defending enter 'd'");
             string decision = System.Console.ReadLine().ToLower();
-            AddToField(player, player2, idx_number, decision);
+            AddToField(player, player2, selection, decision);
             System.Console.WriteLine($"{player.Name} your turn has ended {Environment.NewLine}");
         }
         public void Logic(Player player, Player player2)
@@ -153,7 +139,7 @@ namespace alans_n_dragons
                     System.Console.WriteLine(pictures.cardAscii, card.name, card.atk, card.def, mode, count);
                     count ++;
                 }
-                while (count < 4)
+                while (count < 3)
                 {
                     System.Console.WriteLine(pictures.emptyCard);
                     count ++;
@@ -166,10 +152,11 @@ namespace alans_n_dragons
             {
                 DisplayCards(player1, "field");
                 System.Console.WriteLine("Select a card to attack with.");
-                System.Console.WriteLine("Top card is 0 bottom card is 2");
+                System.Console.WriteLine("Select a card by number.");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
-                Card attacker = CreateAttack(player1, idx_number);
+                int selection =SelectProtect(player1, idx_number, "field");
+                Card attacker = CreateAttack(player1, selection);
 
                 //If player2 is defended =>
                 if(Defended(player2))
@@ -178,7 +165,10 @@ namespace alans_n_dragons
                     System.Console.WriteLine($"{player2.Name} is DEFENDED!");
                     System.Console.WriteLine($"Which of {player2.Name}'s cards would you like to attack?");
                     string attackResponse = System.Console.ReadLine();
-                    int defender = NumberProtection(attackResponse);
+                    int int_defender = NumberProtection(attackResponse);
+
+                    //if defender selected number is not in range player2 field try again
+                    int defender = SelectProtect(player2, int_defender, "field");
                     Card target = CreateAttack(player2, defender);
                     Attack(player1, player2, target, attacker);
                 }
@@ -199,9 +189,10 @@ namespace alans_n_dragons
                     else
                     {
                         System.Console.WriteLine($"Which of {player2.Name}'s cards would you like to attack?");
-                        DisplayCards(player1, "field");
+                        DisplayCards(player2, "field");
                         string attackResponse = System.Console.ReadLine();
                         int defender = NumberProtection(attackResponse);
+                        SelectProtect(player2, defender, "field");
                         Card target = CreateAttack(player2, defender);
                         Attack(player1, player2, target, attacker);
                     }
@@ -210,9 +201,23 @@ namespace alans_n_dragons
             }
             else
             {
+                int count = 0;
+                for(int i = 0; i < player1.Field.Count; i++)
+                {
+                    if (player1.Field[i] is Card)
+                    {
+                    count++;
+                    }
+                }
+                if (count > 3)
+                {
+                    System.Console.WriteLine("Your field is full you must attack!");
+                    AttackOrField(player1, player2, "a");
+
+                }
                 DisplayCards(player1, "hand");
                 System.Console.WriteLine("Select a card to field.");
-                System.Console.WriteLine("Top card is 0 bottom card is 4");
+                System.Console.WriteLine("Select a card by number.");
                 string idx = System.Console.ReadLine();
                 int idx_number = NumberProtection(idx);
                 System.Console.WriteLine("Would you like this card to be an attacking card or defending card?");
@@ -264,8 +269,9 @@ namespace alans_n_dragons
                     // check defender's card mode 
                     if (enemy.mode == true)
                     {
+                        int atktemp = enemy.atk;
                         enemy.atk -= selectedCard.atk;
-                        selectedCard.atk -= enemy.atk;
+                        selectedCard.atk -= atktemp;
                         System.Console.WriteLine($"{player1.Name}'s {selectedCard.name} has {selectedCard.atk} life.");
                         System.Console.WriteLine($"{player2.Name}'s {enemy.name} has {enemy.atk} life.");
                         KillTest(player1, player2, enemy, selectedCard);                           
@@ -274,8 +280,9 @@ namespace alans_n_dragons
                     }
                     else
                     {
+                        int atktemp = enemy.atk;
                         enemy.def -= selectedCard.atk;
-                        selectedCard.atk -= enemy.def;
+                        selectedCard.atk -= atktemp;
                         System.Console.WriteLine($"{player1.Name}'s {selectedCard.name} has {selectedCard.atk} life.");
                         System.Console.WriteLine($"{player2.Name}'s {enemy.name} has {enemy.def} life.");
                         KillTest(player1, player2, enemy, selectedCard);
@@ -324,6 +331,57 @@ namespace alans_n_dragons
                 return NumberProtection(retry);
             }
         }
+        public int SelectProtect(Player player, int value, string handType)
+        {
+            int count = 0;
+            if (handType == "hand")
+            {
+                for(int i = 0; i < player.Hand.Count; i++)
+                {
+                    if (player.Hand[i] is Card)
+                    {
+                    count++;
+                    }
+                }
+
+                if (value < count)
+                {
+                    return value;
+                }
+                else
+                {
+                    System.Console.WriteLine("Invalid value, please select another option.");
+                    string selection = System.Console.ReadLine();
+                    int testSelect = NumberProtection(selection);
+                    string handTypeTry = "hand";
+                    return SelectProtect(player, testSelect, handTypeTry);
+                }
+            }
+            else if (handType == "field")
+            {
+                foreach (Card card in player.Field)
+                {
+                    if (card is Card)
+                    {
+                    count++;
+                    }
+                }
+                if (value < count)
+                {
+                    return value;
+                }
+                else
+                {
+                    System.Console.WriteLine("Invalid value, please select another option.");
+                    string selection = System.Console.ReadLine();
+                    int testSelect = NumberProtection(selection);
+                    string handTypeTry = "field";
+                    return SelectProtect(player, testSelect, handTypeTry);
+                }
+            }
+            return value;
+        }
+
         public void KillTest(Player player1, Player player2, object target, Card attacker)
         {
             if (target is Player)
